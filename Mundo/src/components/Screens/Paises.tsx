@@ -1,34 +1,21 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from 'expo-router/js-stack';
 
-import ListaPaises from './ListaPaises';
 import DetallePais from './DetallePais';
+import ListaPaises from './ListaPaises';
+import type { PaisesStackParamList } from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator<PaisesStackParamList>();
 
 const Paises = () => {
-
   return (
-
-    <Stack.Navigator>
-
-      <Stack.Screen
-        name="Paises"
-        component={ListaPaises}
-        options={{
-          headerShown: false,
-        }}
-      />
-
+    <Stack.Navigator initialRouteName="Paises">
+      <Stack.Screen name="Paises" component={ListaPaises} options={{ headerShown: false }} />
       <Stack.Screen
         name="DetallePais"
         component={DetallePais}
-        options={{
-          title: 'Detalle del país',
-        }}
+        options={{ title: 'Detalle del país' }}
       />
-
     </Stack.Navigator>
-
   );
 };
 

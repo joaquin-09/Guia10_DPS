@@ -1,36 +1,17 @@
-import {
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack';
+import { createStackNavigator } from 'expo-router/js-stack';
 
-import ListaMaravillas from './ListaMaravillas';
-import DetalleMaravillas from './DetalleMaravillas';
+import Detalle from './DetalleMaravillas';
+import MaravillasList from './ListaMaravillas';
+import type { MaravillasStackParamList } from './types';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator<MaravillasStackParamList>();
 
 const Maravillas = () => {
-
   return (
-
-    <Stack.Navigator>
-
-      <Stack.Screen
-        name="Maravillas"
-        component={ListaMaravillas}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="Consejos"
-        component={DetalleMaravillas}
-        options={{
-          title: 'Consejos',
-        }}
-      />
-
+    <Stack.Navigator initialRouteName="Maravillas">
+      <Stack.Screen name="Maravillas" component={MaravillasList} options={{ headerShown: false }} />
+      <Stack.Screen name="Consejos" component={Detalle} options={{ headerShown: false }} />
     </Stack.Navigator>
-
   );
 };
 
