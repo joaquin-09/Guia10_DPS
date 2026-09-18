@@ -1,72 +1,39 @@
-import React from 'react';
-
+import { Ionicons } from '@expo/vector-icons';
 import {
   createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+  type BottomTabNavigationOptions,
+} from 'expo-router/js-tabs';
 
-import {
-  NavigationContainer,
-} from '@react-navigation/native';
-
-import { Ionicons } from '@expo/vector-icons';
-
-import Paises from '@/components/Screens/Paises';
 import Maravillas from '@/components/Screens/Maravillas';
+import Paises from '@/components/Screens/Paises';
 
-const Tab = createBottomTabNavigator();
+type RootTabParamList = {
+  Paises: undefined;
+  Maravillas: undefined;
+};
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function HomeScreen() {
-
   return (
+    <Tab.Navigator
+      screenOptions={({ route }): BottomTabNavigationOptions => ({
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => {
+          let iconName: keyof typeof Ionicons.glyphMap = 'home';
 
-    <NavigationContainer>
+          if (route.name === 'Paises') {
+            iconName = 'earth';
+          } else if (route.name === 'Maravillas') {
+            iconName = 'map';
+          }
 
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-
-          headerShown: false,
-
-          tabBarIcon: ({
-            color,
-            size,
-          }) => {
-
-            let iconName: any = 'home';
-
-            if (route.name === 'Paises') {
-              iconName = 'earth';
-            }
-
-            if (route.name === 'Maravillas') {
-              iconName = 'map';
-            }
-
-            return (
-              <Ionicons
-                name={iconName}
-                size={size}
-                color={color}
-              />
-            );
-
-          },
-
-        })}
-      >
-
-        <Tab.Screen
-          name="Paises"
-          component={Paises}
-        />
-
-        <Tab.Screen
-          name="Maravillas"
-          component={Maravillas}
-        />
-
-      </Tab.Navigator>
-
-    </NavigationContainer>
-
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+    >
+      <Tab.Screen name="Paises" component={Paises} />
+      <Tab.Screen name="Maravillas" component={Maravillas} />
+    </Tab.Navigator>
   );
 }
